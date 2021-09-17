@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./index.css">
+  <script src="./ezuikit-hd.js"></script>
+</head>
+
+<body>
+  <div id="playWnd" style="width: 800px;height:450px;display: inline-block;"></div>
+  <div>
+    <div>
+      <div>请输入accessToken:（以下为开放平台测试token）</div>
+      <input id="accessToken" value="ar.5dpkerxs2a7m2ktz83evtkub3fpxx71s-5mmk99p2o9-03u5ywu-jigs9mszm" class="form-control" />
+    </div>
+    <div>
+      <div>请输入播放类型（0：预览  1：回放）</div>
+      <input id="initVideoType" value="0" />
+    </div>
+    <div>
+      <div>请输入布局（1~15）(仅预览模式下生效)</div>
+      <input id="layout" value="2" />
+    </div>
+    <div>
+      <button id="init">1.插件初始化</button>
+    </div>
+    <div>
+      <div>（以下为开放平台测试地址）</div>
+      <div>多窗口模式下，您可以持续复制以下地址到预览输入框，</div>
+      <div>再点击播放预览，实现多窗口播放。</div>
+      
+      <div>ezopen://open.ys7.com/203751922/1.live</div>
+      <div>ezopen://open.ys7.com/C78957921/1.live</div>
+      <input id="url" placeholder="请输入地址" value="ezopen://open.ys7.com/C78957921/1.live" />
+      <button id="play">2.播放预览</button>
+    </div>
+    <div>
+      <input id="videoType" value="1" />
+      <button id="changeVideoType">更改播放模式</button>
+    </div>
+    <div>
+      <div>ezopen://open.ys7.com/203751922/1.rec</div>
+      <input id="recUrl" placeholder="请输入地址" value="ezopen://open.ys7.com/C78957921/1.rec" />
+      <button id="playback">播放回放</button>
+    </div>
+  </div>
+  <script>
+    var EZUIKitHd = new EZUIKitHd({
+      id: 'playWnd',
+      layout: 2,
+    })
+    document.getElementById("init").onclick = function () {
+      var accessToken = document.getElementById('accessToken').value;
+      var initVideoType = parseInt(document.getElementById('initVideoType').value, 10);
+      var layout = parseInt(document.getElementById('layout').value, 10);
+      EZUIKitHd.init({
+        accessToken: accessToken,
+        layout: layout,
+        videoType: initVideoType,
+       });
+    }
+    document.getElementById("play").onclick = function () {
+      var url = document.getElementById("url").value;
+      EZUIKitHd.play(url);
+    }
+    document.getElementById("playback").onclick = function () {
+      var url = document.getElementById("recUrl").value;
+      EZUIKitHd.play(url);
+    }
+    document.getElementById("changeVideoType").onclick = function () {
+      var videoType = parseInt(document.getElementById('videoType').value, 10);
+      EZUIKitHd.switchVideoType(videoType);
+    }
+  </script>
+  <script>
+    fetch('https://open.ys7.com/jssdk/ezopen/demo/token')
+      .then(response => response.json())
+      .then((data) => {
+        if (data.data) {
+          document.getElementById("accessToken").value = data.data.accessToken;
+        }
+      })
+  </script>
+  <script>
+    function getQueryString(name, url) { var r = new RegExp("(\\?|#|&)" + name + "=(.*?)(#|&|$)"); var m = (url || location.href).match(r); return decodeURIComponent(m ? m[2] : ''); }
+    function matchUrl(url) {
+      function formatRecTime(time, defaultTime) {
+        // 用户格式 无需更改 => 20182626T000000Z
+        // return time
+        // 用户格式需要更改
+        //用户时间长度为 14 20181226000000  =》 20181226000000
+        // 用户长度为12     201812260000    =》 201812260000 + defaultTime后面2位
+        // 用户长度为10     2018122600      =》 201812260000 + defaultTime后面4位
+        // 用户长度为8     20181226         =》 201812260000 + defaultTime后面6位
+        // 结果 20181226000000 14位
+        // 插入 TZ
+        var reg = /^[0-9]{8}T[0-9]{6}Z$/;
+        if (reg.test(time)) { // 用户格式 无需更改 => 20182626T000000Z
+          return time;
+        } else if (/[0-9]{8,14}/.test(time)) {
+          var start = 6 - (14 - time.length);
+          var end = defaultTime.length;
+          var standardTime = time + defaultTime.substring(start, end);
+          return standardTime.slice(0, 8) + 'T' + standardTime.slice(8) + 'Z';
+        } else {
+          throw new Error('回放时间格式有误，请确认');
+        }
+      }
+      function reRormatRecTime(time) {
+        var year = time.slice(0, 4);
+        var month = time.slice(4, 6);
+        var day = time.slice(6, 8);
+        var hour = time.slice(9, 11);
+        var minute = time.slice(11, 13);
+        var second = time.slice(13, 15);
+        var date = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+        return new Date(date.replace(/-/g, '/')).getTime();
+      }
+      var obj = {
+        deviceSerial: '',
+        channelNo: '1',
+        hd: false,
+        validateCode: '',
+        startTime: new Date().Format('yyyy-MM-dd') + ' 00:00:00',
+        endTime: new Date().Format('yyyy-MM-dd') + ' 23:59:59',
+      }
+      if (/^ezopen:\/\//.test(url)) {
+        obj.deviceSerial = url.split('/')[3];
+        obj.channelNo = url.split('/')[4].split('.')[0];
+      }
+      if (url.indexOf('.hd') !== -1) {
+        obj.hd = true;
+      }
+      if (url.indexOf('rec') !== -1) {
+        if (getQueryString('begin', url)) {
+          var formatStartTime = formatRecTime(getQueryString('begin', url), '000000');
+          obj.startTime = new Date(reRormatRecTime(formatStartTime)).Format('yyyy-MM-dd hh:mm:ss');
+        }
+        if (getQueryString('end', url)) {
+          var formatEndTime = formatRecTime(getQueryString('end', url), '235959');
+          obj.endTime = new Date(reRormatRecTime(formatEndTime)).Format('yyyy-MM-dd hh:mm:ss');
+        }
+      }
+      return obj;
+    }
+  </script>
+</body>
+
+</html>
