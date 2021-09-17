@@ -12,6 +12,8 @@
 ### 3. 点击插件初始化，初始化插件
 ### 4. 点击播放预览，即可开始播放视频。
 
+[在线demo](https://jianboyu.top/ezuikitHd/index.html)
+
 # 在我的项目中使用
 
 ### 1. 下载插件
