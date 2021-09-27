@@ -169,7 +169,7 @@
   }
 
   var EZUIKitHd = function (params) {
-    var jsWebControlJS = './jsWebControl-1.0.0.min.js';
+    var jsWebControlJS = 'https://open.ys7.com/assets/ezuikit_v3.5/js/jsWebControl-1.0.0.min.js';
     var _this = this;
     this.switchVideo = 0;
     addJs(jsWebControlJS, function () {
