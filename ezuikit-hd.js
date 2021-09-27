@@ -215,7 +215,7 @@
             dllPath: './chain/cloudTransform.dll',
           })
           .then(function () {
-            _this.oWebControl.JS_CreateWnd('playWnd', _this.width, _this.height).then(function () {
+            _this.oWebControl.JS_CreateWnd( params.id, _this.width, _this.height).then(function () {
               console.log('JS_CreateWnd success');
             });
           });
@@ -265,7 +265,7 @@
       }
       // 初始化
       _this.oWebControl = WebControlInit(
-        'playWnd',
+        params.id,
         cbConnectSuccess,
         cbConnectError,
         cbConnectClose
