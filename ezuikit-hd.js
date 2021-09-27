@@ -35,7 +35,7 @@
     return fmt;
   };
   /** 获取url参数 */
-  function getQueryString(name, url) { var r = new RegExp("(\\?|#|&)" + name + "=(.*?)(#|&|$)"); var m = (url || location.href).match(r); return decodeURIComponent(m ? m[2] : ''); }
+  function getQueryString(name, url) { var r = new RegExp("(\\?|#|&)" + name + "=(.*?)(#|&|$)"); var m = (url || window.location.href).match(r); return decodeURIComponent(m ? m[2] : ''); }
   // 格式化回放时间
   function formatRecTime(time, defaultTime) {
     // 用户格式 无需更改 => 20182626T000000Z
@@ -241,12 +241,12 @@
         // 连接异常断开：bNormalClose = false
         // JS_Disconnect正常断开：bNormalClose = true
         console.log('cbConnectClose');
-        oWebControl = null;
+        window.oWebControl = null;
       }
       // 销毁视频控件
       function WebControlDistory() {
         // var bIE = !!window.ActiveXObject || 'ActiveXObject' in window // 是否为IE浏览器
-        if (oWebControl != null) {
+        if (window.oWebControl != null) {
           _this.oWebControl.JS_DestroyWnd().then(
             function () {
               console.log('JS_DestroyWnd');
