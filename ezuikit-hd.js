@@ -191,7 +191,7 @@
 
       // 初始化方法
       function WebControlInit(id, cbConnectSuccess, cbConnectError, cbConnectClose) {
-        return new WebControl({
+        return new window.WebControl({
           szPluginContainer: id,
           iServicePortStart: 14510, // 对应 LocalServiceConfig.xml 中的ServicePortStart值
           iServicePortEnd: 14519, // 对应 LocalServiceConfig.xml 中的ServicePortEnd值
