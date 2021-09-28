@@ -433,6 +433,18 @@
   }
   EZUIKitHd.prototype.openSound = function () {
   }
+  EZUIKitHd.prototype.destroy = function () {
+    var self = this;
+    if (self.oWebControl) {
+      self.oWebControl
+      .JS_DestroyWnd().then(function(){ // oWebControl 为 WebControl 的对象
+        // 销毁插件窗口成功
+        },function(){
+        // 销毁插件窗口失败
+        });
+    }
+  }
+  
   window.EZUIKitHd = EZUIKitHd;
 
   if (!noGlobal) {

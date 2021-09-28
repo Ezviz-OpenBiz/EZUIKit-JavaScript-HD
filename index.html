@@ -56,6 +56,9 @@
       <input id="recUrl" placeholder="请输入地址" value="ezopen://open.ys7.com/C78957921/1.rec" />
       <button id="playback">播放回放</button>
     </div>
+    <div>
+      <button id="destroy">销毁插件</button>
+    </div>
   </div>
   <script>
     var EZUIKitHd = new EZUIKitHd({
@@ -91,6 +94,9 @@
     document.getElementById("changeVideoType").onclick = function () {
       var videoType = parseInt(document.getElementById('videoType').value, 10);
       EZUIKitHd.switchVideoType(videoType);
+    }
+    document.getElementById("destroy").onclick = function () {
+      EZUIKitHd.destroy();
     }
   </script>
   <script>

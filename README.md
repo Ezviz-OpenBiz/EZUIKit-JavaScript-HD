@@ -50,3 +50,8 @@
       accessToken: "xxxx"
     });
 ``` 
+### 3. 销毁插件
+```
+    EZUIKitHd.destroy();
+```
+
