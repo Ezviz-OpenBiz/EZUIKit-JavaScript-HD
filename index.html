@@ -39,6 +39,15 @@
       <button id="play">2.播放预览</button>
     </div>
     <div>
+      <div>（以下为开放平台测试地址）</div>
+      <div>支持传入地址</div>
+      <div>支持传入地址，以及新的token。</div>
+      
+      <input id="nextUrl" placeholder="请输入地址" value="ezopen://open.ys7.com/C69594192/1.live" />
+      <input id="nextAccessToken" placeholder="请输入地址" value="at.4r6fgkb85d6hkmu81kf2nttqakn0t1ca-9gvcavyg0y-0kzsaov-6tz3hbbda" />
+      <button id="playNext">2-1.播放下一个预览</button>
+    </div>
+    <div>
       <input id="videoType" value="1" />
       <button id="changeVideoType">更改播放模式</button>
     </div>
@@ -66,6 +75,14 @@
     document.getElementById("play").onclick = function () {
       var url = document.getElementById("url").value;
       EZUIKitHd.play(url);
+    }
+    document.getElementById("playNext").onclick = function () {
+      var url = document.getElementById("nextUrl").value;
+      var token = document.getElementById("nextAccessToken").value;
+      EZUIKitHd.play({
+        url:url,
+        accessToken: token,
+      });
     }
     document.getElementById("playback").onclick = function () {
       var url = document.getElementById("recUrl").value;

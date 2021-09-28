@@ -304,10 +304,12 @@
     var self = this;
     if (!params.accessToken) {
       //if (!self.appKey || !self.ezvizToken) {
-      alert("请输入accessToken")
-      console.log("accessToken")
+      console.log("accessToken 不能为空");
       return;
     }
+    self.accessToken = params.accessToken;
+    self.layout = params.layout;
+    self.videoType = params.videoType;
     // 初始化入参
     var argumentsPram = {
       layout: params.layout,
@@ -349,7 +351,20 @@
         console.log("视频初始化成功！")
       });
   }
-  EZUIKitHd.prototype.play = function (url) {
+  EZUIKitHd.prototype.play = function (data) {
+    var _this = this;
+    var url = data;
+    var accessToken = this.accessToken;
+    if (typeof data === 'object') {
+      url = data.url;
+      accessToken = data.accessToken;
+      this.init({
+        accessToken: accessToken,
+        layout: _this.layout,
+        videoType: _this.videoType,
+      })
+    }
+
     var playParams = matchUrl(url);
     console.log("matchUrl result",playParams)
     var self = this;

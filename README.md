@@ -39,6 +39,14 @@
 
 ```
 ### 4. 播放视频
+#### 方式1
 ```
     EZUIKitHd.play("ezopen://open.ys7.com/C78957921/1.live");
+``` 
+#### 方式2-支持播放不同token权限下的设备
+```
+    EZUIKitHd.play({
+      url:"ezopen://open.ys7.com/xxxx/1.live",
+      accessToken: "xxxx"
+    });
 ``` 
