@@ -29,6 +29,12 @@
       layout: 2,
     })
 ```
+| 参数       | 是否必填  |  类型  |  说明  |
+| --------   | -----:  | -----:  | :----:  |
+| id         | 是  | string  |视频容器唯一ID     |
+| layout     |   否   |int|   视频布局   |
+| offsetLeft |    否   |int |  视频窗口左偏移量（像素）  |
+| offsetLeft |    否    |int|  视频窗口上偏移量（像素）  |
 ### 3. 初始化插件
 ```
     EZUIKitHd.init({
@@ -53,5 +59,11 @@
 ### 3. 销毁插件
 ```
     EZUIKitHd.destroy();
+```
+
+### 4. 设置窗口偏移
+可以在创建时设置窗口偏移值(参考2.创建视频实例)，后续仍可以通过函数修改偏移量
+```
+     EZUIKitHd.setDocOffset(offsetLeft,offsetTop)
 ```
 

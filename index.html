@@ -23,7 +23,7 @@
     </div>
     <div>
       <div>请输入布局（1~15）(仅预览模式下生效)</div>
-      <input id="layout" value="2" />
+      <input id="layout" value="1" />
     </div>
     <div>
       <button id="init">1.插件初始化</button>
@@ -63,7 +63,9 @@
   <script>
     var EZUIKitHd = new EZUIKitHd({
       id: 'playWnd',
-      layout: 2,
+      layout: 1,
+      offsetLeft: 0,
+      offsetTop: 0,
     })
     document.getElementById("init").onclick = function () {
       var accessToken = document.getElementById('accessToken').value;

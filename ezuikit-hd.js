@@ -217,6 +217,8 @@
           .then(function () {
             _this.oWebControl.JS_CreateWnd( params.id, _this.width, _this.height).then(function () {
               console.log('JS_CreateWnd success');
+              if(params.offsetLeft || params.offsetTop)
+              _this.setDocOffset(params.offsetLeft || 0, params.offsetTop || 0)
             });
           });
       }
@@ -430,6 +432,17 @@
           //self.play("ezopen://open.ys7.com/C69594192/1.rec");
         });
     }
+  }
+  EZUIKitHd.prototype.setDocOffset = function (left, top) {
+    var self = this;
+    if (self.oWebControl) {
+      self.oWebControl
+      .JS_SetDocOffset({ // oWebControl 为 WebControl 的对象
+        left: left,
+        top: top
+      });
+    }
+    self.oWebControl.JS_Resize(self.width, self.height);
   }
   EZUIKitHd.prototype.openSound = function () {
   }
