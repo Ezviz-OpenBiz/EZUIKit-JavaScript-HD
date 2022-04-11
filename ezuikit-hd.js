@@ -182,13 +182,10 @@
       _this.width = 600;
       _this.height = 400;
       var container = document.getElementById(params.id);
-      if(container.offsetWidth) {
-        _this.width = container.offsetWidth;
+      if(container) {
+        _this.width = container.getBoundingClientRect().width;
+        _this.height = container.getBoundingClientRect().height;
       }
-      if(container.offsetHeight) {
-        _this.height = container.offsetHeight;
-      }
-
       // 初始化方法
       function WebControlInit(id, cbConnectSuccess, cbConnectError, cbConnectClose) {
         return new window.WebControl({
