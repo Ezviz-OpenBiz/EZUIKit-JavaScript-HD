@@ -175,9 +175,7 @@
     addJs(jsWebControlJS, function () {
       // 全局变量
       _this.oWebControl = null;
-      _this.accessToken = 'at.1cuih5uc7e6mqnxc646n0drydf8mnw22-41wt82dhya-0ozcba0-wayygtu4x';
-      //_this.accessToken = 'at.7wkytjdr03p61td414qent7n48x26lgh-968hywjbri-12fpi1p-yjwnn4tzo';
-      _this.accessToken = 'ar.5dpkerxs2a7m2ktz83evtkub3fpxx71s-5mmk99p2o9-03u5ywu-jigs9mszm';
+      _this.accessToken = '';
       _this.layout = 1;
       _this.width = 600;
       _this.height = 400;
@@ -374,8 +372,8 @@
         message: null,
         data: {
           deviceSerial: playParams.deviceSerial,
-          channelCode: 1,
-          channelNo: 1,
+          channelCode: parseInt(playParams.channelNo, 10),
+          channelNo: parseInt(playParams.channelNo, 10),
           codeIsEncrypt: 1,
           validateCode: playParams.validateCode,
           deviceClass: 0,
@@ -396,9 +394,9 @@
       argumentsPram.response.data.channelCode = self.channelNo
       argumentsPram.response.data.platformId = self.platformId
     } else { // 海康协议对应的一个字段
-      argumentsPram.response.data.channelNo = 1
+      argumentsPram.response.data.channelNo = parseInt(playParams.channelNo, 10)
     }
-    argumentsPram.response.data.channelNo = 1;
+    argumentsPram.response.data.channelNo = parseInt(playParams.channelNo, 10);
     console.log('预览/回放入参', argumentsPram);
     // 调用视频控件预览方法
     self.oWebControl
