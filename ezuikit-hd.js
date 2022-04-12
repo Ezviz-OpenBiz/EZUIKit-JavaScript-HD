@@ -347,7 +347,9 @@
         console.log("视频初始化成功！")
         resolve({code:0,msg:'视频初始化成功',data:params});
         if(params.autoplay && params.url) {
-          self.play(params.url);
+          params.url.split(",").map((item)=>{
+            self.play(item);
+          })
         }
       })
       .catch((err)=>{
