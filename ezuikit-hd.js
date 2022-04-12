@@ -337,16 +337,25 @@
     };
     console.log('初始化入参', argumentsPram);
     // 调用视频控件初始化方法
-    self.oWebControl
+    const promise = new Promise((resolve, reject) => {
+      self.oWebControl
       .JS_RequestInterface({
         funcName: 'Init',
         arguments: encodeURI(JSON.stringify(argumentsPram)),
       })
       .then(function (oData) {
-        // self.showCBInfo(oData.responseMsg);
-        // self.showTips(true, '视频初始化成功！');
         console.log("视频初始化成功！")
-      });
+        resolve({code:0,msg:'视频初始化成功',data:params});
+        if(params.autoplay && params.url) {
+          self.play(params.url);
+        }
+      })
+      .catch((err)=>{
+        console.log("视频初始化失败！",err)
+        resolve({code:400,msg:'视频初始化失败',data:params})
+      })
+    })
+    return promise;
   }
   EZUIKitHd.prototype.play = function (data) {
     var _this = this;

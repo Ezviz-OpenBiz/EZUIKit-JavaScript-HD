@@ -15,7 +15,7 @@
   <div>
     <div>
       <div>请输入accessToken:（以下为开放平台测试token）</div>
-      <input id="accessToken" value="ar.5dpkerxs2a7m2ktz83evtkub3fpxx71s-5mmk99p2o9-03u5ywu-jigs9mszm" class="form-control" />
+      <input id="accessToken" value="ra.1k6zig4zbcaekfyecr5nk8z97tj4xoww-1ouf1jgj72-02vq99x-za0ofytly" class="form-control" />
     </div>
     <div>
       <div>请输入播放类型（0：预览  1：回放）</div>
@@ -44,8 +44,8 @@
       <div>支持传入地址，以及新的token。</div>
       
       <input id="nextUrl" placeholder="请输入地址" value="ezopen://open.ys7.com/C69594192/1.live" />
-      <input id="nextAccessToken" placeholder="请输入地址" value="at.4r6fgkb85d6hkmu81kf2nttqakn0t1ca-9gvcavyg0y-0kzsaov-6tz3hbbda" />
-      <button id="playNext">2-1.播放下一个预览</button>
+      <input id="nextAccessToken" placeholder="请输入地址" value="at.33zi2x1w7tyvn3q8cqxdn0se78a4xoui-41x1iqtqwc-11bk684-wrb0marmx" />
+      <button id="playNext">2-1.切换设备</button>
     </div>
     <div>
       <input id="videoType" value="1" />
@@ -71,11 +71,19 @@
       var accessToken = document.getElementById('accessToken').value;
       var initVideoType = parseInt(document.getElementById('initVideoType').value, 10);
       var layout = parseInt(document.getElementById('layout').value, 10);
-      EZUIKitHd.init({
+      var initPromise = EZUIKitHd.init({
         accessToken: accessToken,
         layout: layout,
         videoType: initVideoType,
+        autoplay: true,
+        url:document.getElementById("url").value
        });
+       initPromise.then(()=>{
+         console.log("初始化成功回调");
+       })
+      //  // 自动播放
+      //  var url = document.getElementById("url").value;
+      // EZUIKitHd.play(url);
     }
     document.getElementById("play").onclick = function () {
       var url = document.getElementById("url").value;
